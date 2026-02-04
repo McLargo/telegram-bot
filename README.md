@@ -43,19 +43,54 @@ python -m main
 To run the bot in debug mode with more verbose output, set the debug variable:
 
 ```bash
-export TELEGRAM_BOT_DEBUG="1"
+export TELEGRAM_BOT_DEBUG="true"
 ```
 
 After running the bot, you should see a notification in Telegram that your bot
 is online. You can now send messages to your bot for testing.
 
-## Daemon creation
+## Daemon creation with systemd service
 
-WIP
+Copy the telegram-bot.service file to the systemd directory:
 
-## Supervisor configuration
+```bash
+sudo cp telegram-bot.service /etc/systemd/system/telegram-bot.service
+```
 
-WIP
+Or you can create a symbolic link:
+
+```bash
+sudo ln -s config/telegram-bot.service /etc/systemd/system/telegram-bot.service
+```
+
+Next step us is to reload the systemd manager configuration, so it recognizes
+the new service:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+You can enable the service to start on boot with the following command or run it
+manually:
+
+```bash
+sudo systemctl enable telegram-bot.service
+sudo systemctl start telegram-bot.service
+```
+
+## Troubleshooting
+
+To check the status of the service, use:
+
+```bash
+sudo systemctl status telegram-bot.service
+```
+
+To view the logs of the service, use:
+
+```bash
+sudo journalctl -u telegram-bot.service -f
+```
 
 ## References
 

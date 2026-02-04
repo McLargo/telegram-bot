@@ -1,0 +1,12 @@
+[Unit]
+Description=Telegram Bot Service
+After=network.target
+
+[Service]
+ExecStart=/home/pi/telegram-bot/.venv/bin/python3 /home/pi/telegram-bot/main.py
+WorkingDirectory=/home/pi/telegram-bot
+User=pi
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
