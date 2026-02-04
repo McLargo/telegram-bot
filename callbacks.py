@@ -1,6 +1,9 @@
 import os
+from dotenv import load_dotenv
 
 from log import logger
+
+load_dotenv()
 
 
 async def post_init(application) -> None:

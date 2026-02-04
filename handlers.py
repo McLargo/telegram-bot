@@ -1,12 +1,14 @@
-import os
 import sys
 
+from dotenv import load_dotenv
 from telegram import Update
 from telegram.error import Conflict
 from telegram.ext import ContextTypes
 
 from log import logger
 
+# load environment variables from .env file
+load_dotenv()
 
 # hello handler
 async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

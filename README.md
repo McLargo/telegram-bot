@@ -21,6 +21,17 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+> NOTE: If you are using a old version of Raspberry Pi, you may need to specify
+> the Python version you are using, by adding suffix 3 to python/pip commands.
+> Also, make sure pip and venv are installed. You can install them with:
+
+```bash
+sudo apt install python3-pip python3-venv
+pip3 install virtualenv
+python3 -m virtualenv .venv
+...
+```
+
 Now, you can run the bot with the following command, replacing
 `your_bot_token_here` with the token you got from BotFather:
 

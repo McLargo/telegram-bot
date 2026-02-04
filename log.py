@@ -8,5 +8,5 @@ logging.basicConfig(
 logger = logging.getLogger("telegram_bot")
 
 # set our logger to INFO or DEBUG based on environment variable
-debug_mode = os.getenv("TELEGRAM_BOT_DEBUG", "False").lower() in ("true", "1", "t")
+debug_mode = os.getenv("TELEGRAM_BOT_DEBUG", "False").lower() == "true"
 logger.setLevel(logging.DEBUG if debug_mode else logging.INFO)
