@@ -1,0 +1,17 @@
+exclude: ".git"
+
+repos:
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+    - id: markdownlint
+      stages: [pre-commit]
+      args:
+        - "*.md"
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.10
+    hooks:
+      - id: ruff-check
+        args: ["--fix"]
+      - id: ruff-format

@@ -1,3 +1,5 @@
+"""Main entry point for the Telegram bot application."""
+
 import os
 import sys
 
@@ -8,13 +10,18 @@ from callbacks import post_init, post_stop
 from handlers import error_handler, hello
 from log import logger
 
-
 token = os.getenv("TELEGRAM_BOT_TOKEN")
 if not token:
     raise ValueError("No TELEGRAM_BOT_TOKEN found in environment variables")
 
 logger.debug("Starting bot with post init and post stop callbacks")
-app = ApplicationBuilder().token(token).post_init(post_init).post_stop(post_stop).build()
+app = (
+    ApplicationBuilder()
+    .token(token)
+    .post_init(post_init)
+    .post_stop(post_stop)
+    .build()
+)
 
 # Register handlers
 logger.debug("Loading following command handlers: [hello]")
