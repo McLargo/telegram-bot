@@ -94,4 +94,4 @@ sudo journalctl -u telegram-bot.service -f
 
 ## References
 
-- [Python library](https://python-telegram-bot.org/)
+- [Telegram python library](https://python-telegram-bot.org/)
