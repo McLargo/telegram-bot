@@ -19,7 +19,7 @@ class Callbacks:
         It sends a startup notification to the admin chat if configured.
         """
         self.logger.debug("Post-initialization callback triggered")
-        if self.config.send_notifications():
+        if self.config.can_send_notification:
             await application.bot.send_message(
                 chat_id=self.config.admin_chat_id,
                 text="🤖 Bot is now online and ready to accept messages!",
@@ -38,7 +38,7 @@ class Callbacks:
         It sends a shutdown notification to the admin chat if configured.
         """
         self.logger.debug("Post-stop callback triggered")
-        if self.config.send_notifications():
+        if self.config.can_send_notification:
             await application.bot.send_message(
                 chat_id=self.config.admin_chat_id,
                 text="🛑 Bot is shutting down...",

@@ -49,12 +49,18 @@ class Handlers:
             )
             return
 
-        await update.message.reply_text("🔄 Reiniciando el sistema...")
-        self.logger.warning(
-            "System reboot initiated by admin %s",
-            update.effective_user.id,
-        )
-        subprocess.run(["sudo", "reboot"], check=True)  # noqa: S607
+        if self.config.debug:
+            self.logger.debug("Reboot command skipped")
+        else:
+            if self.config.can_send_notification:
+                await update.message.reply_text(
+                    "🔄 System is rebooting... Bot will be back online shortly",
+                )
+            self.logger.warning(
+                "System reboot initiated by admin %s",
+                update.effective_user.id,
+            )
+            subprocess.run(["sudo", "reboot"], check=True)  # noqa: S607
 
     async def error_handler(
         self,

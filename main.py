@@ -9,9 +9,12 @@ from src.callbacks import Callbacks
 from src.config import Config
 from src.handlers import Handlers
 
+# Load configuration and initialize components
 config = Config()
 callbacks = Callbacks(config)
+handlers = Handlers(config)
 
+# Build the application with the token and callbacks
 config.logger.debug("Starting bot with post init and post stop callbacks")
 app = (
     ApplicationBuilder()
@@ -22,7 +25,6 @@ app = (
 )
 
 # Register handlers
-handlers = Handlers(config)
 config.logger.debug(
     "Loading following command handlers: %s",
     handlers.name_list(),
