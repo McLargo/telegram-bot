@@ -25,7 +25,8 @@ class Config:
         )
         self._logger: Optional[logging.Logger] = None
 
-    def send_notifications(self) -> bool:
+    @property
+    def can_send_notification(self) -> bool:
         """Determine if the bot should send notifications to the admin chat."""
         return self.admin_chat_id is not None and self.debug is False
 
@@ -39,7 +40,6 @@ class Config:
                 "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             )
             handler.setFormatter(formatter)
-
             self._logger.addHandler(handler)
             self._logger.setLevel(logging.DEBUG if self.debug else logging.INFO)
         return self._logger
