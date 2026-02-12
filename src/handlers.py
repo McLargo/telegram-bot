@@ -41,7 +41,7 @@ class Handlers:
         """Command handler to reboot the system where the bot is running."""
         if str(update.effective_user.id) != self.config.admin_chat_id:
             await update.message.reply_text(
-                "⛔ Unauthorized bro!",
+                "⛔ Unauthorized request.",
             )
             self.logger.warning(
                 "Unauthorized reboot attempt by %s",
