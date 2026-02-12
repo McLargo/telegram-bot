@@ -3,9 +3,12 @@
 - [CONTRIBUTING.md](CONTRIBUTING.md)
 
 This small application creates a Telegram bot that can respond to commands sent
-via Telegram messages. The ideas is that this bot can be executed as a daemon in
+via Telegram messages. The idea is that this bot can be executed as a daemon in
 your Raspberry Pi, so you can send commands to your Raspberry Pi from anywhere
 using Telegram.
+
+You can find the more details of the use cases and requirements in the [use
+stories](docs/user-stories.md) document.
 
 ## Configuration
 
