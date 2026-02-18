@@ -95,3 +95,33 @@ I want to receive a forbidden notification when `/reboot` command is send
 and log the attempt in the logs
 so that I know I am not allowed to reboot the Raspberry Pi
 ```
+
+## User stories refined and ready to be implemented
+
+```text
+As a user,
+I want to send `/movies` command
+so that I can receive a notification showing the list of movies available in Kodi.
+```
+
+```text
+As a user,
+I want to send `/tvshows` command
+so that I can receive a notification showing the list of TV shows available in Kodi
+and number of episodes per seasons.
+```
+
+```text
+As a user,
+I want to receive a notification when a torrent download has been completed
+so that I know it should be available in Kodi
+```
+
+```text
+As a developer,
+I want to execute actions when a torrent download has been completed
+so that torrent can be removed to avoid upstream communication
+and a notification is send to the telegram admin chat
+and the torrent is moved to the corresponding Kodi folder
+and Kodi library is updated.
+```
