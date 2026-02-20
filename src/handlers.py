@@ -9,6 +9,8 @@ from telegram.error import Conflict
 from telegram.ext import ContextTypes
 
 from src.config import Config
+from src.decorators import admin_only
+from src.kodi import KodiClient
 
 
 class Handlers:
@@ -18,10 +20,11 @@ class Handlers:
         """Initialize the Handlers class with the given configuration."""
         self.config = config
         self.logger = config.logger
+        self.kodi_client = KodiClient(self.config.kodi, self.logger)
 
     def name_list(self) -> List[str]:
         """Return a list of handler names for logging purposes."""
-        return ["hello", "reboot"]
+        return ["hello", "reboot", "movies", "tvshows"]
 
     async def hello(
         self,
@@ -33,22 +36,13 @@ class Handlers:
             f"Hello {update.effective_user.first_name}",
         )
 
+    @admin_only(action_name="reboot")
     async def reboot(
         self,
         update: Update,
         _context: ContextTypes.DEFAULT_TYPE,
     ) -> None:
         """Command handler to reboot the system where the bot is running."""
-        if str(update.effective_user.id) != self.config.admin_chat_id:
-            await update.message.reply_text(
-                "⛔ Unauthorized request.",
-            )
-            self.logger.warning(
-                "Unauthorized reboot attempt by %s",
-                update.effective_user.id,
-            )
-            return
-
         if self.config.debug:
             self.logger.debug("Reboot command skipped")
         else:
@@ -61,6 +55,50 @@ class Handlers:
                 update.effective_user.id,
             )
             subprocess.run(["sudo", "reboot"], check=True)  # noqa: S607
+
+    @admin_only(action_name="get_movies")
+    async def get_movies(
+        self,
+        update: Update,
+        _context: ContextTypes.DEFAULT_TYPE,
+    ) -> None:
+        """Command handler to get the list of movies from Kodi."""
+        response = self.kodi_client.get_movies()
+        message = f"🎬 *Movies in Kodi* ({len(response)} total)\n\n"
+        for movie in response:
+            message += f"🎥 *{movie.title}* ({movie.year})\n"
+
+        await update.message.reply_text(
+            message,
+            parse_mode="Markdown",
+        )
+
+    @admin_only(action_name="get_tv_shows")
+    async def get_tv_shows(
+        self,
+        update: Update,
+        _context: ContextTypes.DEFAULT_TYPE,
+    ) -> None:
+        """Command handler to get the list of TV shows from Kodi."""
+        response = self.kodi_client.get_tv_shows()
+        message = f"📺 *TV Shows in Kodi* ({len(response)} total)\n\n"
+        for show in response:
+            message += f"🎭 *{show.title}* ({show.year})\n"
+
+            if show.seasons:
+                for season in show.seasons:
+                    message += (
+                        f"   └ Season {season.season_number}: "
+                        f"{season.episode_count} episodes\n"
+                    )
+            else:
+                message += "   └ No seasons found\n"
+            message += "\n"
+
+        await update.message.reply_text(
+            message,
+            parse_mode="Markdown",
+        )
 
     async def error_handler(
         self,

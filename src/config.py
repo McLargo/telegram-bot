@@ -9,6 +9,17 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+class KodiConfig:
+    """Configuration class for Kodi integration."""
+
+    def __init__(self):
+        """Initialize the KodiConfig class by loading environment variables."""
+        self.ip: str = os.getenv("KODI_IP", "localhost")
+        self.port: int = int(os.getenv("KODI_PORT", "8080"))
+        self.username: Optional[str] = os.getenv("KODI_USERNAME")
+        self.password: Optional[str] = os.getenv("KODI_PASSWORD")
+
+
 class Config:
     """Configuration class for the Telegram bot application."""
 
@@ -24,6 +35,7 @@ class Config:
             os.getenv("TELEGRAM_BOT_DEBUG", "False").lower() == "true"
         )
         self._logger: Optional[logging.Logger] = None
+        self.kodi = KodiConfig()
 
     @property
     def can_send_notification(self) -> bool:
