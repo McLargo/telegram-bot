@@ -97,6 +97,20 @@ To view the logs of the service, use:
 sudo journalctl -u telegram-bot.service -f
 ```
 
+## Environment variables
+
+The bot uses the following environment variables for configuration:
+
+| Name | Description | Mandatory | Default |
+| ------ | ------------- | ----------- | --------- |
+| `TELEGRAM_BOT_TOKEN` | The token for your Telegram bot | ✅ | - |
+| `TELEGRAM_ADMIN_CHAT_ID` | The chat ID of the admin user | ❌ | - |
+| `TELEGRAM_BOT_DEBUG` | Set to "true" to enable debug logging | ❌ | `false` |
+| `KODI_IP` | The IP address of your Kodi instance | ❌ | `localhost` |
+| `KODI_PORT` | The port number of your Kodi instance | ❌ | `8080` |
+| `KODI_USERNAME` | The username for Kodi authentication | ❌ | - |
+| `KODI_PASSWORD` | The password for Kodi authentication | ❌ | - |
+
 ## References
 
 - [Telegram python library](https://python-telegram-bot.org/)

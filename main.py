@@ -31,6 +31,8 @@ config.logger.debug(
 )
 app.add_handler(CommandHandler("hello", handlers.hello))
 app.add_handler(CommandHandler("reboot", handlers.reboot))
+app.add_handler(CommandHandler("movies", handlers.get_movies))
+app.add_handler(CommandHandler("tvshows", handlers.get_tv_shows))
 app.add_error_handler(handlers.error_handler)
 
 # Start the bot

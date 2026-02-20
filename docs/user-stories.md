@@ -96,8 +96,6 @@ and log the attempt in the logs
 so that I know I am not allowed to reboot the Raspberry Pi
 ```
 
-## User stories refined and ready to be implemented
-
 ```text
 As a user,
 I want to send `/movies` command
@@ -108,13 +106,15 @@ so that I can receive a notification showing the list of movies available in Kod
 As a user,
 I want to send `/tvshows` command
 so that I can receive a notification showing the list of TV shows available in Kodi
-and number of episodes per seasons.
+and number of episodes per each season.
 ```
+
+## User stories refined and ready to be implemented
 
 ```text
 As a user,
 I want to receive a notification when a torrent download has been completed
-so that I know it should be available in Kodi
+so that I know it should be available in Kodi.
 ```
 
 ```text
