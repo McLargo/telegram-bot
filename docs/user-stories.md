@@ -109,19 +109,20 @@ so that I can receive a notification showing the list of TV shows available in K
 and number of episodes per each season.
 ```
 
-## User stories refined and ready to be implemented
-
 ```text
 As a user,
 I want to receive a notification when a torrent download has been completed
-so that I know it should be available in Kodi.
+and show the torrent name in the notification
+and different options to select which Kodi media source the torrent should be moved
+so that the user knows the torrent is ready
+and the user can select to which Kodi media source should be moved.
 ```
 
 ```text
-As a developer,
-I want to execute actions when a torrent download has been completed
-so that torrent can be removed to avoid upstream communication
+As a user,
+I want to select between to which Kodi media source the torrent should be moved
+so that the torrent is moved to the corresponding Kodi folder
+and torrent can be removed to avoid upstream communication
 and a notification is send to the telegram admin chat
-and the torrent is moved to the corresponding Kodi folder
 and Kodi library is updated.
 ```

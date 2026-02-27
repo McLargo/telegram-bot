@@ -110,6 +110,8 @@ The bot uses the following environment variables for configuration:
 | `KODI_PORT` | The port number of your Kodi instance | ❌ | `8080` |
 | `KODI_USERNAME` | The username for Kodi authentication | ❌ | - |
 | `KODI_PASSWORD` | The password for Kodi authentication | ❌ | - |
+| `KODI_MOVIES_PATH` | The path to the movies folder in Kodi | ❌ | - |
+| `KODI_TV_SHOWS_PATH` | The path to the TV shows folder in Kodi | ❌ | - |
 
 ## References
 
