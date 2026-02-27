@@ -9,6 +9,14 @@ from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from src.config import Config
 
 
+def escape_markdown(text: str) -> str:
+    """Escape Telegram Markdown V1 special characters."""
+    escape_chars = r"_*>#[]()~`|{}.!"
+    for char in escape_chars:
+        text = text.replace(char, f"\\{char}")
+    return text
+
+
 async def send_choice():
     """Send a Torrent complete notification to the admin chat.
 
@@ -69,7 +77,7 @@ async def send_choice():
     async with bot:
         await bot.send_message(
             chat_id=config.admin_chat_id,
-            text=f"📥 *Download Finished*\n{t_name}",
+            text=f"📥 *Download Finished*\n{escape_markdown(t_name)}",
             reply_markup=reply_markup,
             parse_mode="Markdown",
         )
