@@ -26,7 +26,7 @@ class Handlers:
 
     def name_list(self) -> List[str]:
         """Return a list of handler names for logging purposes."""
-        return ["hello", "reboot", "movies", "tvshows"]
+        return ["hello", "reboot", "movies", "tvshows", "refresh"]
 
     async def hello(
         self,
@@ -100,6 +100,17 @@ class Handlers:
         await update.message.reply_text(
             message,
             parse_mode="Markdown",
+        )
+
+    async def refresh_kodi_library(
+        self,
+        update: Update,
+        _context: ContextTypes.DEFAULT_TYPE,
+    ) -> None:
+        """Command handler to refresh the Kodi library."""
+        self.kodi_client.refresh_library()
+        await update.message.reply_text(
+            "🔄 Kodi library refresh completed",
         )
 
     async def on_torrent_complete_handler(
