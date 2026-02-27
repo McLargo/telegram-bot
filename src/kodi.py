@@ -43,6 +43,10 @@ class KodiClient:
             self.logger.error("Error connecting to Kodi: %s", e)
             return {}
 
+    def refresh_library(self) -> None:
+        """Refresh the Kodi library."""
+        self._query_kodi("VideoLibrary.Scan")
+
     def get_movies(self) -> List[Movie]:
         """Get the list of movies from Kodi."""
         params = {

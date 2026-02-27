@@ -1,5 +1,7 @@
 """Handlers for the Telegram bot application."""
 
+import os
+import shutil
 import subprocess
 import sys
 from typing import List
@@ -99,6 +101,71 @@ class Handlers:
             message,
             parse_mode="Markdown",
         )
+
+    async def on_torrent_complete_handler(
+        self,
+        update: Update,
+        _context: ContextTypes.DEFAULT_TYPE,
+    ) -> None:
+        """Callback handler for processing torrent complete from inline buttons.
+
+        Expects callback data in format: "action|torrent_id|source_path|name"
+
+        In Debug mode, it simulates the actions,
+        without making actual changes to the filesystem or Kodi library.
+        In Production mode, it moves the file to the selected Kodi media source,
+        refreshes the Kodi library, and removes the torrent from Transmission.
+        """
+        query = update.callback_query
+        await query.answer()
+
+        action, t_id, src, name = query.data.split("|")
+        pretty_action = "Movie" if action == "movies" else "TV Shows"
+        dest = (
+            self.config.kodi.movies_path
+            if action == "movies"
+            else self.config.kodi.tv_shows_path
+        )
+
+        try:
+            if dest is None:
+                raise ValueError(
+                    f"Destination path for {pretty_action} is not configured",
+                )
+            if self.config.debug:
+                self.logger.debug(
+                    "Simulating move of %s to %s (%s)",
+                    name,
+                    pretty_action,
+                    dest,
+                )
+                self.logger.debug("Simulated Kodi library refresh")
+                self.logger.debug(
+                    "Simulated removal of torrent with ID %s",
+                    t_id,
+                )
+                return
+            shutil.move(os.path.join(src, name), os.path.join(dest, name))
+            self.kodi_client.refresh_library()
+            subprocess.run(  # noqa: S603
+                [
+                    "/usr/bin/transmission-remote",
+                    "-n",
+                    f"{self.config.transmission.username}:{self.config.transmission.password}",
+                    "-t",
+                    t_id,
+                    "--remove",
+                ],
+                check=False,
+            )
+            await query.edit_message_text(
+                text=f"✅ Moved {name} to {pretty_action} media source. \n"
+                f"Torrent is removed and Kodi library refreshed.",
+            )
+
+        except Exception as e:
+            self.logger.error("Error processing torrent completion: %s", e)
+            await query.edit_message_text(text=f"❌ Error processing {name}")
 
     async def error_handler(
         self,

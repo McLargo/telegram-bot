@@ -3,7 +3,11 @@
 import sys
 
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler
+from telegram.ext import (
+    ApplicationBuilder,
+    CallbackQueryHandler,
+    CommandHandler,
+)
 
 from src.callbacks import Callbacks
 from src.config import Config
@@ -33,6 +37,8 @@ app.add_handler(CommandHandler("hello", handlers.hello))
 app.add_handler(CommandHandler("reboot", handlers.reboot))
 app.add_handler(CommandHandler("movies", handlers.get_movies))
 app.add_handler(CommandHandler("tvshows", handlers.get_tv_shows))
+app.add_handler(CallbackQueryHandler(handlers.on_torrent_complete_handler))
+
 app.add_error_handler(handlers.error_handler)
 
 # Start the bot
