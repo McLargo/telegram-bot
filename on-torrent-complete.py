@@ -30,6 +30,13 @@ async def send_choice():
     t_dir = os.getenv("TR_TORRENT_DIR")
     t_name = os.getenv("TR_TORRENT_NAME")
 
+    config.logger.debug(
+        "Received torrent completion with ID: %s, Directory: %s, Name: %s",
+        t_id,
+        t_dir,
+        t_name,
+    )
+
     bot = Bot(token=config.token)
     if not all([t_id, t_dir, t_name]):
         config.logger.warning(
