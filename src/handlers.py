@@ -146,16 +146,21 @@ class Handlers:
                 )
                 return
             shutil.move(os.path.join(src, name), os.path.join(dest, name))
-            await query.edit_message_text(
-                text=f"✅ Moved {name} to {pretty_action} media source.",
-            )
             self.kodi_client.refresh_library()
             subprocess.run(  # noqa: S603
-                ["/usr/bin/transmission-remote", "-t", t_id, "--remove"],
+                [
+                    "/usr/bin/transmission-remote",
+                    "-n",
+                    f"{self.config.transmission.username}:{self.config.transmission.password}",
+                    "-t",
+                    t_id,
+                    "--remove",
+                ],
                 check=False,
             )
             await query.edit_message_text(
-                text="✅ Kodi refreshed and torrent removed.",
+                text=f"✅ Moved {name} to {pretty_action} media source. \n"
+                f"Torrent is removed and Kodi library refreshed.",
             )
 
         except Exception as e:

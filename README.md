@@ -101,6 +101,7 @@ sudo journalctl -u telegram-bot.service -f
 
 The bot uses the following environment variables for configuration:
 
+<!-- markdownlint-disable MD013 -->
 | Name | Description | Mandatory | Default |
 | ------ | ------------- | ----------- | --------- |
 | `TELEGRAM_BOT_TOKEN` | The token for your Telegram bot | ✅ | - |
@@ -112,6 +113,9 @@ The bot uses the following environment variables for configuration:
 | `KODI_PASSWORD` | The password for Kodi authentication | ❌ | - |
 | `KODI_MOVIES_PATH` | The path to the movies folder in Kodi | ❌ | - |
 | `KODI_TV_SHOWS_PATH` | The path to the TV shows folder in Kodi | ❌ | - |
+| `TRANSMISSION_USERNAME` | The username for Transmission authentication | ❌ | - |
+| `TRANSMISSION_PASSWORD` | The password for Transmission authentication | ❌ | - |
+<!-- markdownlint-enable MD013 -->
 
 ## References
 

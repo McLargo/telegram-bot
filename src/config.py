@@ -22,6 +22,15 @@ class KodiConfig:
         self.tv_shows_path: Optional[str] = os.getenv("KODI_TV_SHOWS_PATH")
 
 
+class TransmissionConfig:
+    """Configuration class for Transmission integration."""
+
+    def __init__(self):
+        """Initialize the TransmissionConfig class by loading environment variables."""  # noqa: E501
+        self.username: Optional[str] = os.getenv("TRANSMISSION_USERNAME")
+        self.password: Optional[str] = os.getenv("TRANSMISSION_PASSWORD")
+
+
 class Config:
     """Configuration class for the Telegram bot application."""
 
@@ -38,6 +47,7 @@ class Config:
         )
         self._logger: Optional[logging.Logger] = None
         self.kodi = KodiConfig()
+        self.transmission = TransmissionConfig()
 
     @property
     def can_send_notification(self) -> bool:
