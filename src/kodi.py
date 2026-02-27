@@ -30,6 +30,11 @@ class KodiClient:
             "params": params or {},
         }
         try:
+            self.logger.debug(
+                "Sending request to Kodi: %s with params: %s",
+                method,
+                payload["params"],
+            )
             return requests.post(
                 self.url,
                 json=payload,

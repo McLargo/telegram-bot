@@ -126,3 +126,10 @@ and torrent can be removed to avoid upstream communication
 and a notification is send to the telegram admin chat
 and Kodi library is updated.
 ```
+
+```text
+As a user,
+I want to send `/refresh` command
+so that the Kodi library is refreshed
+and I receive a notification when the refresh is completed.
+```

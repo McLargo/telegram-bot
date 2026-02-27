@@ -37,6 +37,7 @@ app.add_handler(CommandHandler("hello", handlers.hello))
 app.add_handler(CommandHandler("reboot", handlers.reboot))
 app.add_handler(CommandHandler("movies", handlers.get_movies))
 app.add_handler(CommandHandler("tvshows", handlers.get_tv_shows))
+app.add_handler(CommandHandler("refresh", handlers.refresh_kodi_library))
 app.add_handler(CallbackQueryHandler(handlers.on_torrent_complete_handler))
 
 app.add_error_handler(handlers.error_handler)
